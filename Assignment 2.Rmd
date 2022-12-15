@@ -1,0 +1,243 @@
+---
+title :"Assignment 2"
+name  :"Mathan Kumar"
+output:"html_document"
+---
+
+1 (a)   Using the rnorm() function, create a vector, x, containing 100 observations drawn from a N(0,1) distribution. This represents a feature, X
+
+```{r}
+set.seed(1)
+x <- rnorm(100)
+```
+
+```{r}
+x
+```
+
+rnorm function creates a random values
+Each and Every time creating Diffent values 
+Its values fall with -1 to 1
+
+(b) Using the rnorm() function, create a vector, eps, containing 100 observations drawn from a N(0,0.25) distribution i.e. a normal distribution with mean zero and variance 0.25
+
+```{r}
+eps <- rnorm(100, 0, sqrt(0.25))
+eps
+```
+
+creating a 100 random values
+mean value is 0 and variance is 0.25 
+
+
+(c) Using x and eps, generate a vector y according to the model
+Y=−1+0.5X+ϵ
+What is the length of the vector y? What are the values of β0 and β1 in this linear model?
+
+```{r}
+
+y = -1 + 0.5 * x + eps
+length(y)
+y
+```
+
+y is length of 100 values 
+β0 is -1 and β1 is 0.5
+
+(d) Create a scatterplot displaying the relationship between x and y. Comment on what you observe
+
+```{r}
+plot(x, y)
+```
+
+A Linear RelationShip between x and y with a positive slope on values pointed on 0 and 1
+
+(e) Fit a least squares linear model to predict y using x. Comment on the model obtained. How do β^0 and β^1 compare to β0 and β1?
+
+```{r}
+lslm.fit <- lm(y ~ x)
+summary(lslm.fit)
+```
+
+The linear regression fits a model close to the true value of the coefficients as was constructed. 
+The model has a large F-statistic with a near-zero p-value so the null hypothesis can be rejected
+
+
+(f) Display the least squares line on the scatterplot obtained in (d). Draw the population regression line on the plot, in a different color. Use the legend() command to create an appropriate legend
+
+```{r}
+plot(x, y)
+abline(lslm.fit, lwd=2, col= 5)
+abline(-1, 0.5, lwd= 2, col = 6)
+legend(-1, legend = c("fit model", "population Regression"), col = 5:9, lwd = 10)
+```
+
+
+2.  This problem involves the “Boston” data set, which we saw in the lab for this chapter. We will now try to predict per capita crime rate using the other variables in this data set. In other words, per capita crime rate is the response, and the other variables are the predictors.
+
+```{r}
+library(MASS)
+```
+
+```{r}
+data("Boston")
+attach(Boston)
+```
+
+
+a.	For each predictor, fit a simple linear regression model to predict the response. Describe your results. In which of the models is there a statistically significant association between the predictor and the response ? Create some plots to back up your assertions.
+
+
+
+```{r}
+zn <- lm(crim ~ zn,Boston)
+summary(zn)
+```
+
+
+
+```{r}
+indus <- lm(crim ~ indus,Boston)
+summary(indus)
+```
+There is a statistically significant relationship between the crime and Indus. 
+This is because the p-value of the model is 2e-16 which is far less than 0.05
+
+
+```{r}
+chas <- lm(crim ~ chas,Boston)
+summary(chas)
+```
+There is a no significant relationship between the crim and chas
+The p-value of the model is 0.209 which is must great than 0.05
+
+
+
+
+```{r}
+nox <- lm(crim ~ nox,Boston)
+summary(nox)
+```
+
+The 2e-16 p-value of the model is far less than 0.05.
+The relationship between crime rate and nitrogen oxide concentrate statistically significant.
+
+
+
+
+```{r}
+rm <- lm(crim ~ rm,Boston)
+summary(rm)
+```
+
+The p- of 6.35e-7 is smaller than 0.05. value.
+There is a statistically significant association between the capita crime rate and the average number of room
+
+
+```{r}
+age <- lm(crim ~ age,Boston)
+summary(age)
+```
+
+the p-value is to low of 2.85e-16
+There is a statistically significant relationship between per capita crime and age
+
+
+```{r}
+dis <- lm(crim ~ dis,Boston)
+summary(dis)
+```
+
+The  p-value of 2e-16, there exists a statistically significant association between per capita crime rate and dis variable
+
+
+```{r}
+rad <- lm(crim ~ rad,Boston)
+summary(rad)
+```
+
+There is a statistically significant association between the per capita crime rate and rad.
+because the p-value low of 2e-16
+
+
+```{r}
+tax <- lm(crim ~ tax,Boston)
+summary(tax)
+```
+
+ There is a statistically significant association between the per capita crime rate and tax
+ 
+
+```{r}
+ptratio <- lm(crim ~ ptratio,Boston)
+summary(ptratio)
+```
+
+There a statistically significant association between per capita crime and ptratio
+because of the model’s small p-value of 2.94e-11
+
+
+```{r}
+black <- lm(crim ~ black,Boston)
+summary(black)
+```
+
+There is a statistically significant association between the per capita crime rate and the black variable
+
+```{r}
+lstat <- lm(crim ~ lstat,Boston)
+summary(lstat)
+```
+
+There is a statistically significant association between the per capita crime rate and lstat.
+
+```{r}
+medv <- lm(crim ~ medv,Boston)
+summary(medv)
+```
+
+There is a statistically significant association between the per capita crime rate and medv .
+Because of the small p-value of 2e-16.
+
+
+
+b.	Fit a multiple regression model to predict the response using all of the predictors. Describe your results. For which predictors can we reject the null hypothesis H0:βj=0 ?
+
+
+```{r}
+multiple_regression_model.bos <- lm(crim ~ .,Boston)
+multiple_regression_model.bos
+summary(multiple_regression_model.bos)
+```
+
+A few predictors of the fitted multiple regression model are found to be statistically significant
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
